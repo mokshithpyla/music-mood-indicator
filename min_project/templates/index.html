@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<head>
+    <title>Smart Music Player</title>
+</head>
+
+<h2>Smart Music Player</h2>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul class=flashes>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
+<!--{% from "_formhelpers.html" import render_field %}-->
+<!--<form method=POST>-->
+    <!--<dl>-->
+        <!--{{ render_field(form.select) }}-->
+        <!--<p>-->
+            <!--{{ render_field(form.search) }}-->
+    <!--</dl>-->
+    <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+    <!--&lt;!&ndash;<input type="text" class="form-control" name="query" id="query">&ndash;&gt;-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--&lt;!&ndash;<p><input type=submit value=Search>&ndash;&gt;-->
+<!--</form>-->
+
+{% from "_formhelpers.html" import render_field %}
+<form method=post action="/results">
+    <dl>
+        {{ render_field(form.songtitle) }}
+
+    </dl>
+    <div style='padding-left:40px;'>
+        <input type=submit value='Search' name='search_btn'>
+        &nbsp;&nbsp;&nbsp;
+
+    </div>
+</form>
+</html>
