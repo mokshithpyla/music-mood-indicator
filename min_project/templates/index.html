@@ -1,9 +1,23 @@
 <!DOCTYPE html>
 <head>
-    <title>Smart Music Player</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+        .center {
+          margin: auto;
+          width: 60%;
+          border: 3px solid #73AD21;
+          padding: 10px;
+          text-align: center;
+        }
+    </style>
+    <title>Music Mood Indicator</title>
 </head>
 
-<h2>Smart Music Player</h2>
+<h2 class="center">Music Mood Indicator</h2>
 
 {% with messages = get_flashed_messages() %}
 {% if messages %}
@@ -15,29 +29,39 @@
 {% endif %}
 {% endwith %}
 
-<!--{% from "_formhelpers.html" import render_field %}-->
-<!--<form method=POST>-->
-    <!--<dl>-->
-        <!--{{ render_field(form.select) }}-->
-        <!--<p>-->
-            <!--{{ render_field(form.search) }}-->
-    <!--</dl>-->
-    <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
-    <!--&lt;!&ndash;<input type="text" class="form-control" name="query" id="query">&ndash;&gt;-->
-    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-    <!--&lt;!&ndash;<p><input type=submit value=Search>&ndash;&gt;-->
-<!--</form>-->
+
 
 {% from "_formhelpers.html" import render_field %}
-<form method=post action="/results">
-    <dl>
-        {{ render_field(form.songtitle) }}
-
-    </dl>
-    <div style='padding-left:40px;'>
-        <input type=submit value='Search' name='search_btn'>
-        &nbsp;&nbsp;&nbsp;
-
+<div class="center">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#song">Song</a></li>
+        <li><a data-toggle="tab" href="#lyrics">Lyrics</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="song" class="tab-pane fade in active">
+            <form method="post" action="/results">
+                <h3>Enter A Song</h3>
+                <dl>
+                    {{ render_field(form.songtitle) }}
+                </dl>
+                <div style='padding-left:40px;'>
+                    <input type=submit value='Song' name='search_btn'>
+                    &nbsp;&nbsp;&nbsp;
+                </div>
+            </form>
+        </div>
+        <div id="lyrics" class="tab-pane fade">
+            <form method="post" action="/results">
+                <h3>Enter Your Own Lyrics for Analysis</h3>
+                <dl>
+                    {{ render_field(form.lyrics) }}
+                </dl>
+                <div style='padding-left:40px;'>
+                    <input type=submit value='Lyrics' name='search_btn'>
+                    &nbsp;&nbsp;&nbsp;
+                </div>
+            </form>
+        </div>
     </div>
-</form>
+</div>
 </html>

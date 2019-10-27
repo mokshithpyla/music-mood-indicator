@@ -4,7 +4,7 @@ sid = SentimentIntensityAnalyzer()
 from app import app
 # from db_setup import init_db, db_session
 
-import flask_whooshalchemy as wa
+# import flask_whooshalchemy as wa
 from forms import MusicSearchForm
 from flask import flash, render_template, request, redirect
 
@@ -21,11 +21,17 @@ def index():
 def search_results():
 
     form = MusicSearchForm(request.form)
-    songtitle = request.form['songtitle']
-    pred, font_color = predictMood(songtitle)
-
-    return render_template('results.html', form=form, songtitle=songtitle, font_color=font_color,
-                           pred=pred)
+    # print(request.form['tab-content'].id)
+    if request.form['search_btn'] == 'Song':
+        print('finding song')
+        songtitle = request.form['songtitle']
+        pred, font_color, artistname, lyrics = predictMood(songtitle, '')
+    else:
+        songtitle =''
+        lyrics = request.form['lyrics']
+        pred, font_color, artistname, lyrics = predictMood('', lyrics)
+    return render_template('/results.html', form=form, songtitle=songtitle, font_color=font_color,
+                           pred=pred, artistname=artistname, lyrics=lyrics)
 
 
 if __name__ == '__main__':
