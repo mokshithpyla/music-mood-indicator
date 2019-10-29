@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Music Mood Indicator</title>
+
+</head>
+<body>
+
+<div id="myUL">
+    <form method="post" action="/results" >
+    {% for i in range(list_of_songs|length) %}
+        <input type=submit name='song_name' value="{{list_of_songs[i][2]}} - {{list_of_songs[i][1]}} ">
+    <!--<li><a href="#">{{list_of_songs[i][2]}}</a></li>-->
+    {% endfor %}
+    </form>
+</div>
+
+</body>
+</html>
