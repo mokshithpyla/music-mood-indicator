@@ -6,78 +6,74 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <style>
-        .center {
-          margin: auto;
-          width: 60%;
-          border: 3px solid #73AD21;
-          padding: 10px;
-          text-align: center;
-        }
-        .card {
-
-         padding-bottom: 50px:
-        }
-        .item{
-        display: none;
+        body{
+        font-family: ;
+        color: #2c3e50;
+        background-color: #FFE4E1
         }
         .autocomplete {
-  position: relative;
-  display: inline-block;
-}
+          position: relative;
+          display: inline-block;
+        }
+        input {
+          border: 1px solid transparent;
+          background-color: #f1f1f1;
+          padding: 10px;
+          font-size: 16px;
+        }
 
-input {
-  border: 1px solid transparent;
-  background-color: #f1f1f1;
-  padding: 10px;
-  font-size: 16px;
-}
+        input[type=text] {
+          background-color: #f1f1f1;
+          width: 100%;
+        }
 
-input[type=text] {
-  background-color: #f1f1f1;
-  width: 100%;
-}
+        input[type=submit] {
+        -webkit-transition-duration: 0.4s;
+        transition-duration: 0.4s;
+        border-radius: 6px;
+        }
+        input[type=submit]:hover{
+          background-color: DodgerBlue;
+          color: #fff;
+          cursor: pointer;
+        }
 
-input[type=submit] {
-  background-color: DodgerBlue;
-  color: #fff;
-  cursor: pointer;
-}
 
-.autocomplete-items {
-  position: absolute;
-  border: 1px solid #d4d4d4;
-  border-bottom: none;
-  border-top: none;
-  z-index: 99;
-  /*position the autocomplete items to be the same width as the container:*/
-  top: 100%;
-  left: 0;
-  right: 0;
-}
+        .autocomplete-items {
+          position: absolute;
+          border: 1px solid #d4d4d4;
+          border-bottom: none;
+          border-top: none;
+          z-index: 99;
+          /*position the autocomplete items to be the same width as the container:*/
+          top: 100%;
+          left: 0;
+          right: 0;
+        }
 
-.autocomplete-items div {
-  padding: 10px;
-  cursor: pointer;
-  background-color: #fff;
-  border-bottom: 1px solid #d4d4d4;
-}
+        .autocomplete-items div {
+          padding: 10px;
+          cursor: pointer;
+          background-color: #fff;
+          border-bottom: 1px solid #d4d4d4;
+        }
 
-/*when hovering an item:*/
-.autocomplete-items div:hover {
-  background-color: #e9e9e9;
-}
+        /*when hovering an item:*/
+        .autocomplete-items div:hover {
+          background-color: #e9e9e9;
+        }
 
-/*when navigating through the items using the arrow keys:*/
-.autocomplete-active {
-  background-color: DodgerBlue !important;
-  color: #ffffff;
-}
+        /*when navigating through the items using the arrow keys:*/
+        .autocomplete-active {
+          background-color: DodgerBlue !important;
+          color: #ffffff;
+        }
     </style>
     <title>Music Mood Indicator</title>
 </head>
 <body>
-<h2 class="center">Music Mood Indicator</h2>
 
+<div id="container" style="background-color: #FFE4E1; padding: 30px">
 {% with messages = get_flashed_messages() %}
 {% if messages %}
 <ul class=flashes>
@@ -91,32 +87,26 @@ input[type=submit] {
 
 
 {% from "_formhelpers.html" import render_field %}
-<div class="center" >
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#song">Song</a></li>
-        <li><a data-toggle="tab" href="#lyrics">Lyrics</a></li>
+
+<div style="background-color: #fff; margin: auto;text-align: center; width: 50%; border: 2px solid #00BFFF; border-radius: 6px" >
+    <h2>Music Mood Indicator</h2>
+    <ul class="nav nav-tabs" style="margin:auto; width: 50%; text-align: center; padding-top: 20px">
+        <li class="active">
+            <a data-toggle="tab" href="#song" style="color: #2c3e50">Song</a>
+        </li>
+        <li>
+            <a data-toggle="tab" href="#lyrics" style="color: #2c3e50">Lyrics</a>
+        </li>
     </ul>
     <div class="tab-content">
         <div id="song" class="tab-pane fade in active">
-            <form method="post" action="/search_results" autocomplete="off">
+            <form name="theform" method="post" action="/search_results" autocomplete="off">
                 <h3>Enter A Song</h3>
                 <!--<dl onkeyup="myFunction()">-->
-                <div class="autocomplete" style="width: 300px;">
-                <input name="song_name" type="text" id="myInput" placeholder="Search for songs.." title="Type in a name">
+                <div class="autocomplete" style="width: 50%; margin: auto; padding: 10px;">
+                <input name="song_name" type="text" id="myInput" placeholder="Search for songs.."  title="Type in a name" required>
                 </div>
-                <!--</dl>-->
-                <!--<div id="listofsongs">-->
-                    <!--<ul id="UL" >-->
-                    <!--{% for i in range(10)%}-->
-                    <!--&lt;!&ndash;<input type=submit name='song_name'> <a>{{list_of_songs[i][2]}} </a> </input>&ndash;&gt;-->
-                    <!--<li ><a href="#">{{list_of_songs[i][2]}}</a></li>-->
-                    <!--{% endfor %}-->
-                    <!--{% for i in range(list_of_songs|length - 10) %}-->
-                    <!--<li class="item"><a href="#">{{list_of_songs[i][2]}}</a></li>-->
-                    <!--{% endfor %}-->
-                    <!--</ul>-->
-                <!--</div>-->
-                <div style='padding-left:40px;'>
+                <div style='padding-left:20px; padding-bottom: 10px'>
                     <input type = submit value='Search' name='search_btn'>
                     &nbsp;&nbsp;&nbsp;
                 </div>
@@ -124,12 +114,11 @@ input[type=submit] {
         </div>
         <div id="lyrics" class="tab-pane fade">
             <form method="post" action="/results">
-                <h3>Enter Your Own Lyrics for Analysis</h3>
-                <dl>
-                    {{ render_field(form.lyrics) }}
-                </dl>
-
-                <div style='padding-left:40px;'>
+                <h3>Enter Custom Lyrics for Analysis</h3>
+                <div style="height:auto">
+                    <textarea rows="20" cols="50" name="lyrics" placeholder="Come as you are..."></textarea>
+                </div>
+                <div style='padding-left:30px; padding: 5px'>
                     <input type=submit value='Analyze' name='search_btn'>
                     &nbsp;&nbsp;&nbsp;
                 </div>
@@ -137,6 +126,11 @@ input[type=submit] {
         </div>
     </div>
 </div>
+</div>
+<footer style="text-align: center; font-size: 12px">&copy; Copyright 2019
+    <p>Created By: Mokshith</p>
+    <p>See Full Code <a href="https://github.com/mokshithpyla/music-mood-indicator"> Here</a>.</p>
+</footer>
 <script>
     function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
@@ -239,18 +233,9 @@ var data = {{ list_of_songs | tojson }};
 {% endif %}
 songs = new Array(data.length);
 for(var i = 0; i < data.length; i++){
-    songs[i] = data[i][2];
+    songs[i] = data[i];
 }
 autocomplete(document.getElementById("myInput"), songs);
 </script>
 </body>
 </html>
-
-<!--<div id="myUL">-->
-    <!--<form id="f" method="post" action="/results" onload="myFunction()">-->
-        <!--{% for i in range(list_of_songs| length) %}-->
-        <!--&lt;!&ndash;<input type=submit name='song_name'> <a>{{list_of_songs[i][2]}} </a> </input>&ndash;&gt;-->
-        <!--<li><a href="#">{{list_of_songs[i][2]}}</a></li>-->
-        <!--{% endfor %}-->
-    <!--</form>-->
-<!--</div>-->

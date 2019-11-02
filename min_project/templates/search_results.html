@@ -2,19 +2,84 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Mood Indicator</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333333;
+}
 
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+}
+table{
+border-collapse:collapse;
+}
+th, td {
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+.hoverTable tr:not(:nth-child(1)):hover {
+      background-color: #86D694;
+}
+
+    </style>
 </head>
 <body>
-
+<!--<div id="myUL">-->
+    <!--<form method="post" action="/results" >-->
+        <!--{% for i in range(list_of_songs|length) %}-->
+        <!--<input type=submit name='song_name' value="{{list_of_songs[i][2]}} - {{list_of_songs[i][1]}} ">-->
+        <!--&lt;!&ndash;<li><a href="#">{{list_of_songs[i][2]}}</a></li>&ndash;&gt;-->
+        <!--{% endfor %}-->
+    <!--</form>-->
+<!--</div>-->
+<a href="{{ url_for('index')}}"> Back </a>
 <div id="myUL">
     <form method="post" action="/results" >
-    {% for i in range(list_of_songs|length) %}
-        <input type=submit name='song_name' value="{{list_of_songs[i][2]}} - {{list_of_songs[i][1]}} ">
-    <!--<li><a href="#">{{list_of_songs[i][2]}}</a></li>-->
-    {% endfor %}
+        <!--<input id="details" type="submit" name="details" value="{{list_of_songs[0][2]}}#{{list_of_songs[0][1]}}"/>-->
+            <table style="width:50%" id="songs" align="center" class="hoverTable" >
+                <caption align="center">Search Results</caption>
+            <tr>
+                <th>Song</th>
+                <th>Artist</th>
+                <th></th>
+            </tr>
+            {% for i in range(list_of_songs|length) %}
+            <tr>
+                <td align="center">{{list_of_songs[i][2]}}</td>
+                <td align="center">{{list_of_songs[i][1]}}</td>
+                <td align="center"> <input name = "{{i}}" type="submit" value="Analyze"/> <input type="hidden" name ="song_details{{i}}" value="{{list_of_songs[i][2]}}@{{list_of_songs[i][1]}}"/></td>
+            </tr>
+            {% endfor %}
+            </table>
+        <!--<p>Search Results</p>-->
+        <!--<ol>-->
+        <!--{% for i in range(list_of_songs|length) %}-->
+        <!--&lt;!&ndash;<button name='song_name' > <a name="song">{{list_of_songs[i][2]}}</a> - <a name="artist">{{list_of_songs[i][1]}}</a></button>&ndash;&gt;-->
+            <!--<li>{{list_of_songs[i][2]}}</li>-->
+            <!--<li>{{list_of_songs[i][1]}}</li>-->
+            <!--<li>-->
+                <!--<input type="submit" value="Analyze"/>-->
+                <!--<input type="hidden" name ="song_details" value="{{list_of_songs[i][2]}}@{{list_of_songs[i][1]}}"/>-->
+            <!--</li>-->
+        <!--{% endfor %}-->
+        <!--</ol>-->
     </form>
 </div>
-
 </body>
 </html>

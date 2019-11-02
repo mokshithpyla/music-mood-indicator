@@ -5,6 +5,7 @@ import os
 import sqlite3 as lite
 import sys
 from app import app
+import matplotlib.pyplot as plt
 
 my_dir = os.path.dirname(__file__)
 
@@ -75,9 +76,9 @@ def predictMood(songtitle, artistname, lyrics):
             font_color = 'green'
             pred = 'happy/positive'
         if by_song:
-            return pred, font_color, data[0][1], lyrics
+            return pred, font_color, data[0][1], lyrics, [num_positive, num_negative, num_neutral]
         else:
-            return pred, font_color, '', lyrics
+            return pred, font_color, '', lyrics, [num_positive, num_negative, num_neutral]
     # except:
     #
     #     print("Error {}:")

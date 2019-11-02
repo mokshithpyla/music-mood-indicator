@@ -10,10 +10,13 @@ from forms import MusicSearchForm
 from flask import flash, render_template, request, redirect
 
 from sentiment import predictMood
-from app import data
+from app import songsdata
 import sys
 import sqlite3 as lite
 
+
+def redirect_url(default='index'):
+    return request.referrer
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -24,7 +27,7 @@ def index():
     # data = cur.fetchall()
     search = MusicSearchForm(request.form)
     # print(d)
-    return render_template('index.html', form=search, list_of_songs=data)
+    return render_template('index.html', form=search, list_of_songs=songsdata)
     # except:
     #     print("Error {}:")
     #     sys.exit(1)
@@ -45,6 +48,9 @@ def search_results():
         cur.execute('SELECT "text","artist","song" from "songdata_compressed" where upper("song") is upper("'+search_word+'")')
         data = cur.fetchall()
         print(data)
+        if data == []:
+            print('yes')
+            return render_template('not_found.html', form=form, song=search_word)
         # if not data:
         #     cur.execute('SELECT * from "songdata_compressed"')
         #     data = cur.fetchall()
@@ -72,19 +78,25 @@ def results():
     if 'search_btn' in request.form:
         songtitle = ''
         lyrics = request.form['lyrics']
-        pred, font_color, artistname, lyrics = predictMood('','', lyrics)
+        pred, font_color, artistname, lyrics, chart_values = predictMood('', '', lyrics)
         print(pred)
         return render_template('results.html', form=form, songtitle=songtitle, font_color=font_color,
-        pred=pred, artistname=artistname, lyrics=lyrics)
+        pred=pred, artistname=artistname, lyrics=lyrics, chart_values=chart_values)
     else:
         print('finding song')
-        songtitle, artistname = request.form['song_name'].split('-')
+        print(request.form)
+        i = '0'
+        for each in request.form:
+            if request.form[each] == 'Analyze':
+                i = each
+        print(i)
+        songtitle, artistname = request.form['song_details'+i].split('@')
         songtitle = songtitle.strip()
         artistname = artistname.strip()
         print(songtitle, artistname)
-        pred, font_color, artistname, lyrics = predictMood(songtitle, artistname, '')
+        pred, font_color, artistname, lyrics, chart_values = predictMood(songtitle, artistname, '')
         return render_template('results.html', form=form, songtitle=songtitle, font_color=font_color,
-                               pred=pred, artistname=artistname, lyrics=lyrics)
+                               pred=pred, artistname=artistname, lyrics=lyrics, chart_values=chart_values)
 
 
 if __name__ == '__main__':
