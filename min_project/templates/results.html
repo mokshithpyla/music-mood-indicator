@@ -3,18 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
+    <title>{{songtitle}} - Mood Prediction</title>
+    <style>
+    body{
+    font-family: sans-serif;
+    color: #2c3e50;
+    background-color: #FFE4E1;
+    padding: 22px
+    }
+            .card {
+            background-color: #fff;
+            margin: auto;
+            text-align: center;
+            width: 100%;
+            border: 2px solid #00BFFF;
+            border-radius: 6px;
+        }
+        @media only screen and (min-width: 768px){
+            .card {
+            background-color: #fff;
+            margin: auto;
+            text-align: center;
+            width: 50%;
+            border: 2px solid #00BFFF;
+            border-radius: 6px;
+            }
+        }
+     footer{
+     text-align: center;
+     font-size: 12px;
+     padding-top: 10px;
+     }
+    </style>
+
 </head>
 <body>
-<!--{% for result in results %}-->
-<!--<p>{{result.song}}</p>-->
-<!--{% endfor %}-->
-<a href="{{ url_for('index')}}"> Home</a>
-<p><strong>Artist name:</strong> {{artistname}}</p>
-<p><strong>Song title:</strong> {{songtitle}}</p>
-<p><strong>Lyrics:</strong> {{lyrics}}</p>
-<p><strong>Prediction: <font color={{font_color}}>  {{pred}} </font> </strong></p>
-<div id="piechart"></div>
+<div id="card" class="card" >
+    <a href="{{ url_for('index')}}"> Home</a>
+    <p><strong>Artist name:</strong> {{artistname}}</p>
+    <p><strong>Song title:</strong> {{songtitle}}</p>
+    <p><strong>Lyrics:</strong> {{lyrics}}</p>
+    <p><strong>Prediction: <font color={{font_color}}>  {{pred}} </font> </strong></p>
+    <div align="center" style="text-align:center; overflow: auto;resize: both;" id="piechart"></div>
+</div>
+<footer>&copy; Copyright 2019
+    <p>Created By: Mokshith</p>
+    <p>See Full Code <a href="https://github.com/mokshithpyla/music-mood-indicator"> Here</a>.</p>
+</footer>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 // Load google charts
